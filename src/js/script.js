@@ -43,6 +43,8 @@ let actionDivision = (false);
 let actionMultiplication = (false);
 let negativityOne = false;
 let negativityTwo = false;
+
+const btnexample = document.querySelector('#example');
 // нужно ли было присваивать константы эллемнтам имеющим ID?
 
 // btn_action
@@ -117,7 +119,7 @@ perform.addEventListener('click', function(){
 });
 perform.addEventListener('click', function(){
     if (negativityTwo == true){
-        negativityTwo = Number(numberTwo)*-1;
+        numberTwo = Number(numberTwo)*-1;
         return numberTwo;
     }
 })
@@ -345,6 +347,7 @@ function visualization(){
     visNO.value = numberOne - 0;
     visNT.value = numberTwo - 0;
     visR.value = (`${result}`);
+    btnexample.innerText = 'успех';
     if (actionPlus == true){
         visS.value = '+';
     } else if (actionMinus == true) {
