@@ -1,6 +1,11 @@
-// const { SassNumber } = require("sass"); как это появилось?
-
 console.log ('начало скрипта');
+// btn_action
+// btn_reset
+// btn_figure
+// btn_show
+// btn_perform
+// bl_visual
+
 const btn0 = document.querySelector('#zero');
 const btn1 = document.querySelector('#one');
 const btn2 = document.querySelector('#two');
@@ -16,7 +21,8 @@ const btnMinus = document.querySelector('#minus');
 const btnPerform = document.querySelector('#perform');
 const btnMultiplication = document.querySelector('#multiplication');
 const btnDivision = document.querySelector('#division');
-const btnReset = document.querySelector('#reset')
+const btnReset = document.querySelector('#reset');
+const btnConsole = document.querySelector('#Console');
 const figure0 = ('0');
 const figure1 = ('1');
 const figure2 = ('2');
@@ -32,34 +38,45 @@ let numberTwo = ('0');
 let action = (false);
 let actionPlus = (false);
 let actionMinus = (false);
-let result = (0);
+let result = ('0');
 let actionDivision = (false);
 let actionMultiplication = (false);
+let negativityOne = false;
+let negativityTwo = false;
+// нужно ли было присваивать константы эллемнтам имеющим ID?
 
-/*
-console.log(action);
-console.log(numberOne);
-console.log(numberTwo);
-console.log(numberOne); console.log(numberTwo); console.log(action); console.log(result);
-console.log(actionPlus);
-console.log(actionMinus);
-console.log(action); console.log(actionMinus); console.log(actionPlus);
-console.log(result);
-*/
+// btn_action
+
+btnMinus.addEventListener('click', function(){
+    if (action == false && numberOne === '0' && negativityOne == false ) {
+        negativityOne = true;
+    } else if ( action == false && numberOne === '0' && negativityOne == true ) {
+        negativityOne = false;
+    } 
+});
+
+btnMinus.addEventListener('click', function(){
+    if (action == true && numberTwo === '0' && negativityTwo == false ) {
+        negativityTwo = true;
+    } else if (action == true && numberTwo === '0' && negativityTwo == true ) {
+        negativityTwo = false;
+    }
+});
+
+btnMinus.addEventListener('click', function(){
+    if (action == false && numberOne !== '0') {
+        action = true;
+        actionPlus = false;
+        actionMinus = true;
+        actionDivision = false;
+        actionMultiplication = false;
+    }
+});
 
 btnPlus.addEventListener('click', function(){
     action = true;
     actionPlus = true;
     actionMinus = false;
-    actionDivision = false;
-    actionMultiplication = false;
-// почему бы это не заменить на btnPlus.onclik = function (){} ведь нет доп функций при этом клике
-});
-
-btnMinus.addEventListener('click', function(){
-    action = true;
-    actionPlus = false;
-    actionMinus = true;
     actionDivision = false;
     actionMultiplication = false;
 });
@@ -80,62 +97,82 @@ btnMultiplication.addEventListener('click',function(){
     actionMultiplication = true;
 });
 
-// plus.addEventListener('click', function(){
-//     action = true;
-//     actionPlus = true;
-// });
+// btn_perform
 
-// minus.addEventListener('click', function(){
-//     action = true;
-//     actionMinus = true;
-// });
-// я так понимаю таким образом я обращаюсь не через константу по id
+function ActionEndFalse(){
+    action = false;
+    actionPlus = false;
+    actionMinus = false;
+    actionDivision = false;
+    actionMultiplication = false;
+    negativityOne = false;
+    negativityTwo = false;
+};
 
 perform.addEventListener('click', function(){
-    if (actionPlus == true && action == true) {
+    if (negativityOne == true){
+        numberOne = Number(numberOne)*-1;
+        return numberOne;
+    };
+});
+perform.addEventListener('click', function(){
+    if (negativityTwo == true){
+        negativityTwo = Number(numberTwo)*-1;
+        return numberTwo;
+    }
+})
+
+
+// perform.addEventListener('click', function(){
+//     if (negativityOne == true && actionMinus == true){
+//         numberTwo = Number(numberTwo)*-1;
+//         return numberTwo;
+//     }
+// })
+// странно что мне пришлось это прописать 
+
+perform.addEventListener('click', function(){
+    if (actionPlus == true && action == true ) {
         console.log('addition');
         result = Number(numberOne) + Number(numberTwo);
         numberOne = ('0');
         numberTwo = ('0');
-        action = false;
+        ActionEndFalse();
         return result;
     } else if(actionMinus  == true && action == true) {
         console.log('subtraction');
         result = Number(numberOne) - Number(numberTwo);
         numberOne = ('0');
         numberTwo = ('0');
-        action = false;
+        ActionEndFalse();
         return result;
     } else if (actionDivision == true && action == true){
         console.log('division');
         result = Number(numberOne) / Number(numberTwo);
         numberOne = ('0');
         numberTwo = ('0');
-        action = false;
+        ActionEndFalse();
         return result;
     } else if (actionMultiplication == true && action == true){
         console.log('Multiplication');
         result = Number(numberOne) * Number(numberTwo);
         numberOne = ('0');
         numberTwo = ('0');
-        action = false;
+        ActionEndFalse();
         return result;
     }
 });
 
-reset.addEventListener('click', function(){
+// btn_reset
+
+btnReset.addEventListener('click', function(){
     numberOne = ('0');
     numberTwo = ('0');
-    action = false;
-})
-
-// && скорей всего не нужно будет. но надо посмотреть как я решу отрицательные числа а потом уже принимать решение об удалении 
-
-// function set(a,b){
-//     let numberOne = a + b;
-//     return numberOne
-// };
-
+    // visR.setAttribute('value','0') не работает
+    // visR.removeAttribute('value') не работает
+    result = '';
+    ActionEndFalse();
+});
 
 
 btn0.addEventListener('click', function(){
@@ -186,65 +223,189 @@ btn3.addEventListener('click', function(){
     }
 });
 
-// btn4.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure4;
-//     return numberOne;
+btn4.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure4;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure4;
+        return numberTwo;
+    }
+});
+
+btn5.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure5;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure5;
+        return numberTwo;
+    }
+});
+
+btn6.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure6;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure6;
+        return numberTwo;
+    }
+});
+
+btn7.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure7;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure7;
+        return numberTwo;
+    }
+});
+
+btn8.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure8;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure8;
+        return numberTwo;
+    }
+});
+
+btn9.addEventListener('click', function(){
+    if (action == false) {
+        console.log('click numberOne');
+        numberOne = numberOne + figure9;
+        return numberOne;
+    } else {
+        console.log('click numberTwo');
+        numberTwo = numberTwo + figure9;
+        return numberTwo;
+    }
+});
+
+// btn_Show
+
+btnConsole.addEventListener('click', function(){
+    console.log(`action: ${action}`);
+    console.log(`actionPlus: ${actionPlus}`);
+    console.log(`actionMinus: ${actionMinus}`);
+    console.log(`actionMultiplication: ${actionMultiplication}`);
+    console.log(`actionDivision: ${actionDivision}`);
+    console.log(`numberOne: ${numberOne}`);
+    console.log(`numberTwo: ${numberTwo}`);
+    console.log(`result: ${result}`);
+    console.log(`negativityOne: ${negativityOne}`);
+    console.log(`negativityTwo: ${negativityTwo}`)
+    // console.log(`btnAll:${btnAll}`);
+});
+
+// btnAll.addEventListener('click', function(){
+//     visNO.value = numberOne;
+//     visNT.value = numberTwo;
+//     visR.value = (`=${result}`)
 // });
 
-// btn5.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure5;
-//     return numberOne;
+// btnShow это бывший Console.log
+
+// btnShow.addEventListener('click', function(){
+//     if (actionPlus == true){
+//         visS.value = '+';
+//     } else if (actionMinus == true) {
+//         visS.value = '-';
+//     } else if (actionDivision == true) {
+//         visS.value = ':';
+//     } else if (actionMultiplication == true) {
+//         visS.value = '*';
+//     } else {
+//         visS.value = '';
+//     }
 // });
 
-// btn6.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure6;
-//     return numberOne;
+// btnShow.addEventListener('click', function(){
+//     visNO.value = numberOne;
+//     visNT.value = numberTwo;
+//     visR.value = (`=${result}`)
 // });
 
-// btn7.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure7;
-//     return numberOne;
-// });
+// bl_visual
 
-// btn8.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure8;
-//     return numberOne;
-// });
+function visualization(){
+    visNO.value = numberOne - 0;
+    visNT.value = numberTwo - 0;
+    visR.value = (`${result}`);
+    if (actionPlus == true){
+        visS.value = '+';
+    } else if (actionMinus == true) {
+        visS.value = '-';
+    } else if (actionDivision == true) {
+        visS.value = ':';
+    } else if (actionMultiplication == true) {
+        visS.value = '*';
+    } else {
+        visS.value = '';
+    };
+    if (numberOne === '0'){
+        visNO.value = '';
+    }
+    if (action == false) {
+        visNT.value = '';
+    };
+    if (numberTwo === '0') {
+        visNT.value = ''
+    };
+    if (result === '0') {
+        visR.value = ''
+    };
+    if (negativityOne == true){
+        visNOnegativity.classList.remove('none')
+    };
+    if (negativityOne == false){
+        visNOnegativity.classList.add('none')
+    };
+    if (negativityTwo == true){
+        visNTnegativity.classList.remove('none')
+    };
+    if (negativityTwo == false){
+        visNTnegativity.classList.add('none')
+    };
+}
 
-// btn9.addEventListener('click', function(){
-//     console.log('click');
-//     numberOne = numberOne + figure9;
-//     return numberOne;
-// });
+//     visNO.value = numberOne - 0;
+//     visNT.value = numberTwo - 0;
+// напоминаю что это попытка лишить числа строчного значения - сделать числовым ведь все операции кроме сложения приводт набор цифр к числовому значению p.s. со слов Антона
+// вопрос почему не надо делать return при этом?
 
-
-// btn0.addEventListener('click', set(number, figure8));
-
-// set(number, figure8)
-
-// let res = set(Number(meaning),Number(figure3),Number(figure9));
-
-
-// let res = set(figure5,figure3, figure9);
-// console.log(res);
-
-// function set(meaning, 5, 7){
-//     var meaning = meaning + 5 + 7;
-//     return meaning;
-// }
-
-// console.log(meaning)
-// number0.addEventListener('click', function set(meaning, number0){
-//     meaning = meaning + number0;
-//     return meaning;
-//     console.log('meaning');
-    
-// })
+btn0.addEventListener('click', visualization);
+btn1.addEventListener('click', visualization);
+btn2.addEventListener('click', visualization);
+btn3.addEventListener('click', visualization);
+btn4.addEventListener('click', visualization);
+btn5.addEventListener('click', visualization);
+btn6.addEventListener('click', visualization);
+btn7.addEventListener('click', visualization);
+btn8.addEventListener('click', visualization);
+btn9.addEventListener('click', visualization);
+btnPlus.addEventListener('click', visualization);
+btnMinus.addEventListener('click', visualization);
+btnPerform.addEventListener('click', visualization);
+btnMultiplication.addEventListener('click', visualization);
+btnDivision.addEventListener('click', visualization);
+btnReset.addEventListener('click', visualization);
+// btnShow.addEventListener('click', visualization);
 
 
 console.log ('конец скрипта');
+
+// btnPlus.onclik = function (){} так будет короче

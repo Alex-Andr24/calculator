@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pattern</title>
+    <title>Калькулятор</title>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
@@ -23,7 +23,38 @@
     <button id="division">:</button>
     <button id="perform">=</button>
     <button id="reset">C</button>
+    <button id="Console">Console.log</button>
 
+    <div id="visBlock">
+        <div class="visBlock__row">
+            <div>наберите первое число: </div>
+            <input id="visNOnegativity" value="-" class="none">
+            <!-- вместо этого инпута можно было бы сделать так чтобы при выполнении функции визуализации число домножалось на -1. тогда отпала надобность в инпуте. но это вызовет дополнительные трудности потому что в некоторых случаях сравниваются строчный значения. да и "-0" вряд ли последомножения покажут при визуализации. можно было бы не домножать а складывать строчный значения "-" и "0" но это тоже принесёт в будущем ошибки  -->
+            <input id="visNO" value="">
+        </div>
+
+        <div class="visBlock__row">
+            <div>выберите действие: </div>
+            <input id="visS" value="">
+        </div>
+
+        <div class="visBlock__row">
+            <div>наберите второе число: </div>
+            <input id="visNTnegativity" value="-" class="none">
+            <input id="visNT" value="">
+        </div>
+
+        <div class="visBlock__row">
+            <div>нажмите "=": </div>
+            <input id="visR" value="">
+        </div>
+    </div>
+
+    
+
+    <div class="history">
+
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>
