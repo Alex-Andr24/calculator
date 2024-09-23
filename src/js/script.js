@@ -138,6 +138,7 @@ function Perform(){
     result = numberOne;
     commaOne = false;
     commaTwo = false;
+    commaOneUse = true;
     commaTwoUse = false;
 }
 
