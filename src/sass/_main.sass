@@ -1,0 +1,102 @@
+$main-size: 24px
+*
+    box-sizing: border-box
+body
+    background-color: #5a5a5a
+.figure_border, .sign_border, .perform_border, .reset_border, .function_border
+    background-color: #dbdbdb
+    border: 1px solid black
+    transition: background-color .4s
+    &:active
+        content: ''
+        background-color: green
+    &:hover
+        content: ''
+        border: 2px solid black
+
+.visBlock
+    display: flex
+    font-size: $main-size
+    width: 90%
+    max-width: 470px
+    margin: 2% auto
+    border: 2px solid black
+    flex-wrap: wrap
+    min-height: 31.59px
+    padding-left: 5px
+.none
+    display: none
+
+.wrapper-figure
+    width: 90%
+    margin: 5% auto 0 auto
+.wrapper-figure__row
+    width: 206.4px
+    margin: 0 auto
+.wrapper-figure__row_last
+    display: flex
+    justify-content: space-around
+.figure
+    width: 52.8px
+    height: 35px
+    margin: 0 20px 15px 0
+    font-size: $main-size
+.figure_last
+    margin-right: 0px
+
+.wrapper-sign
+    width: 90%
+    margin: 0 auto
+.wrapper-sign__row
+    width: 144.18px
+    margin: 0 auto 5% auto
+    display: flex
+.sign
+    width: 57.59px
+    height: 35px
+    margin-right: 25px
+    font-size: $main-size
+.sign_multiplication
+    padding-top: 8px
+.sign_last
+    margin-right: 0
+    padding-bottom: 5px
+
+.wrapper-perform
+    width: 57.59px
+    margin: 0 auto 
+.perform
+    width: 57.59px
+    height: 35px
+    font-size: $main-size
+    line-height: 35px
+
+.wrapper-reset
+    margin: 0 auto
+    width: 80%
+    max-width: 300px
+    display: flex
+    justify-content: space-between
+    margin-bottom: 5%
+.reset
+    width: 52.8px
+    height: 35px
+    font-size: $main-size
+
+.wrapper-function
+    margin: 0 auto
+    width: 90%
+    max-width: 400px
+    display: flex
+    justify-content: space-between
+.function
+    width: 71px
+    height: 35px
+    font-size: 12px
+.wrapper-figure__row_animated, .wrapper-sign__row_animated, .wrapper-perform_animated, .wrapper-reset_animated
+    animation-name: open
+    animation-duration: 1.5s
+
+.wrapper-function_animated, .visBlock_animated
+    animation-name: openSM
+    animation-duration: 1.5s

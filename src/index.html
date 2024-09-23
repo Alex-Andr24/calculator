@@ -6,55 +6,67 @@
     <title>Калькулятор</title>
     <link rel="stylesheet" href="css/style.min.css">
 </head>
-<body>
-    <button id="zero">0</button>
-    <button id="one">1</button>
-    <button id="two">2</button>
-    <button id="three">3</button>
-    <button id="four">4</button>
-    <button id="five">5</button>
-    <button id="six">6</button>
-    <button id="seven">7</button>
-    <button id="eight">8</button>
-    <button id="nine">9</button>
-    <button id="plus">+</button>
-    <button id="minus">-</button>
-    <button id="multiplication">*</button>
-    <button id="division">:</button>
-    <button id="perform">=</button>
-    <button id="reset">C</button>
-    <button id="Console">Console.log</button>
+<body">
+    <div id="visBlock" class="visBlock visBlock_border visBlock_animated">
+        <div id="visNOnegativity"></div>
+        <div id="visNO"></div>
+        <div id="visNOcomma"></div>
+        <div id="visS"></div>
+        <div id="visNTnegativity" class="none">-</div>
+        <div id="visNT"></div>
+        <div id="visNTcomma"></div>
+        <!-- <div id="visR" value=""></div> -->
+    </div>
 
-    <div id="visBlock">
-        <div class="visBlock__row">
-            <div>наберите первое число: </div>
-            <input id="visNOnegativity" value="-" class="none">
-            <!-- вместо этого инпута можно было бы сделать так чтобы при выполнении функции визуализации число домножалось на -1. тогда отпала надобность в инпуте. но это вызовет дополнительные трудности потому что в некоторых случаях сравниваются строчный значения. да и "-0" вряд ли последомножения покажут при визуализации. можно было бы не домножать а складывать строчный значения "-" и "0" но это тоже принесёт в будущем ошибки  -->
-            <input id="visNO" value="">
+    <div class="wrapper-figure">
+        <div class="wrapper-figure__row wrapper-figure__row_animated">
+            <button id="one" class="figure figure_border">1</button>
+            <button id="two" class="figure figure_border">2</button>
+            <button id="three" class="figure figure_last figure_border">3</button>
         </div>
-
-        <div class="visBlock__row">
-            <div>выберите действие: </div>
-            <input id="visS" value="">
+        <div class="wrapper-figure__row wrapper-figure__row_animated">
+            <button id="four" class="figure figure_border">4</button>
+            <button id="five" class="figure figure_border">5</button>
+            <button id="six" class="figure figure_last figure_border">6</button>
         </div>
-
-        <div class="visBlock__row">
-            <div>наберите второе число: </div>
-            <input id="visNTnegativity" value="-" class="none">
-            <input id="visNT" value="">
+        <div class="wrapper-figure__row wrapper-figure__row_animated">
+            <button id="seven" class="figure figure_border">7</button>
+            <button id="eight" class="figure figure_border">8</button>
+            <button id="nine" class="figure figure_last figure_border">9</button>
         </div>
-
-        <div class="visBlock__row">
-            <div>нажмите "=": </div>
-            <input id="visR" value="">
+        <div class="wrapper-figure__row wrapper-figure__row_last wrapper-figure__row_animated">
+            <button id="zero" class="figure figure_border">0</button>
+            <button id="comma" class="figure figure_comma figure_last figure_border">.</button>
         </div>
     </div>
 
-    <div id="example"> example </div>
-
-    <div class="history">
-
+    <div class="wrapper-sign">
+        <div class="wrapper-sign__row wrapper-sign__row_animated">
+            <button id="plus" class="sign sign_border">+</button>
+            <button id="minus" class="sign sign_last sign_border">-</button>
+        </div>
+        
+        <div class="wrapper-sign__row wrapper-sign__row_animated">
+            <button id="multiplication" class="sign sign_multiplication sign_border">*</button>
+            <button id="division" class="sign sign_last sign_border">:</button>
+        </div>
+        
     </div>
+    
+    <div class="wrapper-perform wrapper-perform_animated">
+        <button id="perform" class="perform perform_border">=</button>
+    </div>
+    <div class="wrapper-reset wrapper-reset_animated">
+        <button id="reset" class="reset reset_border">C</button>
+        <button class="reset reset_border">X</button>
+    </div>
+
+    <div class="wrapper-function wrapper-function_animated">
+        <button class="function function_border">Копировать результат</button>
+        <button id="console" class="function function_border">Console .log</button>
+    </div>
+
+    <!-- <div class="history"> не реализовано</div> -->
     <script src="js/script.js"></script>
 </body>
 </html>

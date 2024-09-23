@@ -22,7 +22,8 @@ const btnPerform = document.querySelector('#perform');
 const btnMultiplication = document.querySelector('#multiplication');
 const btnDivision = document.querySelector('#division');
 const btnReset = document.querySelector('#reset');
-const btnConsole = document.querySelector('#Console');
+const btnConsole = document.querySelector('#console');
+const btnComma = document.querySelector('#comma')
 const figure0 = ('0');
 const figure1 = ('1');
 const figure2 = ('2');
@@ -38,16 +39,22 @@ let numberTwo = ('0');
 let action = (false);
 let actionPlus = (false);
 let actionMinus = (false);
-let result = ('0');
 let actionDivision = (false);
 let actionMultiplication = (false);
+let commaOne = false;
+let commaTwo = false;
+let result = ('0');
 let negativityOne = false;
 let negativityTwo = false;
+// let negativityOneAfterPerfom = false;
+let commaOneUse = false;
+let commaTwoUse = false;
+// нужна ли последняя переменная?
 
-const btnexample = document.querySelector('#example');
-// нужно ли было присваивать константы эллемнтам имеющим ID?
 
 // btn_action
+
+
 
 btnMinus.addEventListener('click', function(){
     if (action == false && numberOne === '0' && negativityOne == false ) {
@@ -75,6 +82,22 @@ btnMinus.addEventListener('click', function(){
     }
 });
 
+btnMinus.addEventListener('click', function(){
+    if (action == true && numberTwo > 0) {
+        action = true;
+        actionPlus = false;
+        actionMinus = true;
+        actionDivision = false;
+        actionMultiplication = false;
+    }
+});
+
+btnPlus.addEventListener('click', function(){
+    if (negativityTwo == true){
+        negativityTwo = false
+    }
+});
+
 btnPlus.addEventListener('click', function(){
     action = true;
     actionPlus = true;
@@ -82,6 +105,8 @@ btnPlus.addEventListener('click', function(){
     actionDivision = false;
     actionMultiplication = false;
 });
+
+
 
 btnDivision.addEventListener('click', function(){
     action = true;
@@ -101,6 +126,21 @@ btnMultiplication.addEventListener('click',function(){
 
 // btn_perform
 
+function Perform(){
+    action = false;
+    actionPlus = false;
+    actionMinus = false;
+    actionDivision = false;
+    actionMultiplication = false;
+    negativityOne = false;
+    negativityTwo = false;
+    numberTwo = ('0');
+    result = numberOne;
+    commaOne = false;
+    commaTwo = false;
+    commaTwoUse = false;
+}
+
 function ActionEndFalse(){
     action = false;
     actionPlus = false;
@@ -109,6 +149,11 @@ function ActionEndFalse(){
     actionMultiplication = false;
     negativityOne = false;
     negativityTwo = false;
+    negativityOneAfterPerfom = false;
+    commaOne = false;
+    commaTwo = false;
+    commaOneUse = false;
+    commaTwoUse = false;
 };
 
 perform.addEventListener('click', function(){
@@ -122,46 +167,28 @@ perform.addEventListener('click', function(){
         numberTwo = Number(numberTwo)*-1;
         return numberTwo;
     }
-})
-
-
-// perform.addEventListener('click', function(){
-//     if (negativityOne == true && actionMinus == true){
-//         numberTwo = Number(numberTwo)*-1;
-//         return numberTwo;
-//     }
-// })
-// странно что мне пришлось это прописать 
+});
 
 perform.addEventListener('click', function(){
     if (actionPlus == true && action == true ) {
-        console.log('addition');
-        result = Number(numberOne) + Number(numberTwo);
-        numberOne = ('0');
-        numberTwo = ('0');
-        ActionEndFalse();
-        return result;
+        numberOne = Number(numberOne) + Number(numberTwo);
+        Perform();
+        return numberOne;
     } else if(actionMinus  == true && action == true) {
         console.log('subtraction');
-        result = Number(numberOne) - Number(numberTwo);
-        numberOne = ('0');
-        numberTwo = ('0');
-        ActionEndFalse();
-        return result;
+        numberOne = Number(numberOne) - Number(numberTwo);
+        Perform();
+        return numberOne;
     } else if (actionDivision == true && action == true){
         console.log('division');
-        result = Number(numberOne) / Number(numberTwo);
-        numberOne = ('0');
-        numberTwo = ('0');
-        ActionEndFalse();
-        return result;
+        numberOne = Number(numberOne) / Number(numberTwo);
+        Perform();
+        return numberOne;
     } else if (actionMultiplication == true && action == true){
         console.log('Multiplication');
-        result = Number(numberOne) * Number(numberTwo);
-        numberOne = ('0');
-        numberTwo = ('0');
-        ActionEndFalse();
-        return result;
+        numberOne = Number(numberOne) * Number(numberTwo);
+        Perform();
+        return numberOne;
     }
 });
 
@@ -170,134 +197,230 @@ perform.addEventListener('click', function(){
 btnReset.addEventListener('click', function(){
     numberOne = ('0');
     numberTwo = ('0');
-    // visR.setAttribute('value','0') не работает
-    // visR.removeAttribute('value') не работает
     result = '';
     ActionEndFalse();
 });
 
+// btn_figure
+
+btnComma.addEventListener('click', function(){
+    if (action == false && commaOne == false && commaOneUse == false){
+        commaOne = true;
+    } else if (action == false && commaOne == true ) {
+        commaOne = false
+    }
+});
+
+btnComma.addEventListener('click', function(){
+    if (action == true && commaTwo == false &&commaTwoUse == false){
+        commaTwo = true;
+    } else if (action == true && commaTwo == true &&commaTwoUse == false){
+        commaTwo = false;
+    }
+});
 
 btn0.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure0;
         return numberOne;
-    } else if(action == true) {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure0) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure0;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure0) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn1.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure1;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure1) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure1;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure1) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn2.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure2;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure2) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure2;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure2) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn3.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure3;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure3) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure3;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure3) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn4.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure4;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure4) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure4;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure4) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn5.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure5;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure5) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure5;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure5) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn6.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure6;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure6) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure6;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure6) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn7.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure7;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure7) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure7;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure7) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn8.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure8;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure8) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure8;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure8) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 btn9.addEventListener('click', function(){
-    if (action == false) {
-        console.log('click numberOne');
+    if (action == false && commaOne == false) {
         numberOne = numberOne + figure9;
         return numberOne;
-    } else {
-        console.log('click numberTwo');
+    } else if (action == false && commaOne == true && commaOneUse == false){
+        numberOne = (numberOne + figure9) / 10;
+        commaOne = false;
+        commaOneUse = true;
+        return numberOne;
+    } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + figure9;
+        return numberTwo;
+    } else if (action == true && commaTwo == true && commaTwoUse == false){
+        numberTwo = (numberTwo + figure9) / 10;
+        commaTwo = false;
+        commaTwoUse = true;
         return numberTwo;
     }
 });
 
 // btn_Show
+
 
 btnConsole.addEventListener('click', function(){
     console.log(`action: ${action}`);
@@ -309,73 +432,49 @@ btnConsole.addEventListener('click', function(){
     console.log(`numberTwo: ${numberTwo}`);
     console.log(`result: ${result}`);
     console.log(`negativityOne: ${negativityOne}`);
-    console.log(`negativityTwo: ${negativityTwo}`)
+    console.log(`negativityTwo: ${negativityTwo}`);
+    // console.log(`negativityOneAfterPerfom: ${negativityOneAfterPerfom}`);
+    console.log(`commaOne: ${commaOne}`);
+    console.log(`commaTwo: ${commaTwo}`);
+    console.log(`commaOneUse: ${commaOneUse}`);
+    console.log(`commaTwoUse: ${commaTwoUse}`);
     // console.log(`btnAll:${btnAll}`);
 });
-
-// btnAll.addEventListener('click', function(){
-//     visNO.value = numberOne;
-//     visNT.value = numberTwo;
-//     visR.value = (`=${result}`)
-// });
-
-// btnShow это бывший Console.log
-
-// btnShow.addEventListener('click', function(){
-//     if (actionPlus == true){
-//         visS.value = '+';
-//     } else if (actionMinus == true) {
-//         visS.value = '-';
-//     } else if (actionDivision == true) {
-//         visS.value = ':';
-//     } else if (actionMultiplication == true) {
-//         visS.value = '*';
-//     } else {
-//         visS.value = '';
-//     }
-// });
-
-// btnShow.addEventListener('click', function(){
-//     visNO.value = numberOne;
-//     visNT.value = numberTwo;
-//     visR.value = (`=${result}`)
-// });
 
 // bl_visual
 
 function visualization(){
-    visNO.value = numberOne - 0;
-    visNT.value = numberTwo - 0;
-    visR.value = (`${result}`);
-    btnexample.innerText = 'успех';
+    visNO.innerText = numberOne - 0;
+    visNT.innerText = numberTwo - 0;
+    // visR.innerText = (`${result}`);
     if (actionPlus == true){
-        visS.value = '+';
+        visS.innerText = '+';
     } else if (actionMinus == true) {
-        visS.value = '-';
+        visS.innerText = '-';
     } else if (actionDivision == true) {
-        visS.value = ':';
+        visS.innerText = ':';
     } else if (actionMultiplication == true) {
-        visS.value = '*';
+        visS.innerText = '*';
     } else {
-        visS.value = '';
+        visS.innerText = '';
     };
     if (numberOne === '0'){
-        visNO.value = '';
-    }
+        visNO.innerText = '0';
+    };
     if (action == false) {
-        visNT.value = '';
+        visNT.innerText = '';
     };
     if (numberTwo === '0') {
-        visNT.value = ''
+        visNT.innerText = ''
     };
-    if (result === '0') {
-        visR.value = ''
+    if (numberTwo === '0' && action == true){
+        visNT.innerText = '0'
     };
     if (negativityOne == true){
-        visNOnegativity.classList.remove('none')
+        visNOnegativity.innerText = '-'
     };
-    if (negativityOne == false){
-        visNOnegativity.classList.add('none')
+    if (negativityOne == false ){
+        visNOnegativity.innerText = ''
     };
     if (negativityTwo == true){
         visNTnegativity.classList.remove('none')
@@ -383,12 +482,22 @@ function visualization(){
     if (negativityTwo == false){
         visNTnegativity.classList.add('none')
     };
-}
-
-//     visNO.value = numberOne - 0;
-//     visNT.value = numberTwo - 0;
-// напоминаю что это попытка лишить числа строчного значения - сделать числовым ведь все операции кроме сложения приводт набор цифр к числовому значению p.s. со слов Антона
-// вопрос почему не надо делать return при этом?
+    // if (result >= 0) {
+    //     negativityOneAfterPerfom = false
+    // } else {
+    //     negativityOneAfterPerfom = true
+    // };
+    if (commaOne == true && commaOneUse == false) {
+        visNOcomma.innerText = '.'
+    } else {
+        visNOcomma.innerText = ''
+    }
+    if (commaTwo == true && commaTwoUse == false) {
+        visNTcomma.innerText = '.'
+    } else {
+        visNTcomma.innerText = ''
+    }
+};
 
 btn0.addEventListener('click', visualization);
 btn1.addEventListener('click', visualization);
@@ -405,6 +514,7 @@ btnMinus.addEventListener('click', visualization);
 btnPerform.addEventListener('click', visualization);
 btnMultiplication.addEventListener('click', visualization);
 btnDivision.addEventListener('click', visualization);
+btnComma.addEventListener('click', visualization);
 btnReset.addEventListener('click', visualization);
 // btnShow.addEventListener('click', visualization);
 
@@ -412,3 +522,4 @@ btnReset.addEventListener('click', visualization);
 console.log ('конец скрипта');
 
 // btnPlus.onclik = function (){} так будет короче
+// надо строчыне функции
