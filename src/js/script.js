@@ -140,13 +140,13 @@ function afterCalculate(){
 
 perform.addEventListener('click', function(){
     if (negativityOne){
-        numberOne = Number(numberOne)*-1;
+        numberOne = -numberOne;
         return numberOne;
     };
 });
 perform.addEventListener('click', function(){
     if (negativityTwo){
-        numberTwo = Number(numberTwo)*-1;
+        numberTwo = -numberTwo;
         return numberTwo;
     }
 });
@@ -207,18 +207,18 @@ btnComma.addEventListener('click', function(){
 
 function set(){
     if (action == false&&commaOne == false){
-        numberOne = numberOne + this.innerText;
+        numberOne += this.innerText;
         return numberOne;
     }else if(action == false &&commaOne){
-        numberOneAfterComma = numberOneAfterComma + this.innerText;
-        denominatorNumberOneAfterComma = denominatorNumberOneAfterComma *10;
+        numberOneAfterComma += this.innerText;
+        denominatorNumberOneAfterComma *= 10;
         return numberOneAfterComma, denominatorNumberOneAfterComma;
     }else if(action&&commaTwo == false){
-        numberTwo = numberTwo + this.innerText;
+        numberTwo += this.innerText;
         return numberTwo;
     } else if (action&&commaTwo){
-        numberTwoAfterComma = numberTwoAfterComma + this.innerText;
-        denominatorNumberTwoAfterComma = denominatorNumberTwoAfterComma * 10;
+        numberTwoAfterComma += this.innerText;
+        denominatorNumberTwoAfterComma *= 10;
         return numberOneAfterComma, denominatorNumberTwoAfterComma;
     }
 };
@@ -293,3 +293,6 @@ btnConsole.addEventListener('click', function(){
     console.log(`denominatorNumberTwoAfterComma: ${denominatorNumberTwoAfterComma}`);
     console.log(`All: ${btnAll}`);
 });
+
+const example = prompt('Антон, введите ваше имя');
+alert(`${example}, шутка:)))`)
