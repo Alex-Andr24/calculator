@@ -26,9 +26,8 @@ const figure6 = ('6');
 const figure7 = ('7');
 const figure8 = ('8');
 const figure9 = ('9');
-let numberOne = ('0');
-let numberTwo = ('0');
-let numberExample = ('0');
+let numberOne = ('');
+let numberTwo = ('');
 let action = (false);
 let actionPlus = (false);
 let actionMinus = (false);
@@ -39,7 +38,6 @@ let commaTwo = false;
 let result = ('0');
 let negativityOne = false;
 let negativityTwo = false;
-// let negativityOneAfterPerfom = false;
 let commaOneUse = false;
 let commaTwoUse = false;
 let quantityZero = '';
@@ -49,75 +47,25 @@ btnAll.forEach(function() {
     this.addEventListener('click', visualization)
 });
 
-function visualization(){
-    visNO.innerText = numberOne ;
-    visNT.innerText = numberTwo ;
-    if (actionPlus == true){
-        visS.innerText = '+';
-    } else if (actionMinus == true) {
-        visS.innerText = '-';
-    } else if (actionDivision == true) {
-        visS.innerText = ':';
-    } else if (actionMultiplication == true) {
-        visS.innerText = '*';
-    } else {
-        visS.innerText = '';
-    };
-    if (numberOne === '0'){
-        visNO.innerText = '0';
-    };
-    if (action == false) {
-        visNT.innerText = '';
-    };
-    if (numberTwo === '0') {
-        visNT.innerText = ''
-    };
-    if (numberTwo === '0' && action == true){
-        visNT.innerText = '0'
-    };
-    if (negativityOne == true){
-        visNOnegativity.innerText = '-'
-    };
-    if (negativityOne == false ){
-        visNOnegativity.innerText = ''
-    };
-    if (negativityTwo == true){
-        visNTnegativity.classList.remove('none')
-    };
-    if (negativityTwo == false){
-        visNTnegativity.classList.add('none')
-    };
-    if (commaOne == true && commaOneUse == false) {
-        visNOcomma.innerText = '.'
-    } else {
-        visNOcomma.innerText = ''
-    }
-    if (commaTwo == true && commaTwoUse == false) {
-        visNTcomma.innerText = '.'
-    } else {
-        visNTcomma.innerText = ''
-    };
-};
-
 
 btnMinus.addEventListener('click', function(){
-    if (action == false && numberOne === '0' && negativityOne == false ) {
+    if (action == false && numberOne === '' && negativityOne == false ) {
         negativityOne = true;
-    } else if ( action == false && numberOne === '0' && negativityOne == true ) {
+    } else if ( action == false && numberOne === '' && negativityOne == true ) {
         negativityOne = false;
     } 
 });
 
 btnMinus.addEventListener('click', function(){
-    if (action == true && numberTwo === '0' && negativityTwo == false ) {
+    if (action == true && numberTwo === '' && negativityTwo == false ) {
         negativityTwo = true;
-    } else if (action == true && numberTwo === '0' && negativityTwo == true ) {
+    } else if (action == true && numberTwo === '' && negativityTwo == true ) {
         negativityTwo = false;
     }
 });
 
 btnMinus.addEventListener('click', function(){
-    if (action == false && numberOne !== '0') {
+    if (action == false && numberOne !== '') {
         action = true;
         actionPlus = false;
         actionMinus = true;
@@ -166,7 +114,7 @@ btnMultiplication.addEventListener('click',function(){
     actionMultiplication = true;
 });
 
-function Calculate(){
+function afterCalculate(){
     action = false;
     actionPlus = false;
     actionMinus = false;
@@ -174,7 +122,7 @@ function Calculate(){
     actionMultiplication = false;
     negativityOne = false;
     negativityTwo = false;
-    numberTwo = ('0');
+    numberTwo = ('');
     result = numberOne;
     commaOne = false;
     commaTwo = false;
@@ -199,22 +147,22 @@ perform.addEventListener('click', function(){
 perform.addEventListener('click', function(){
     if (actionPlus == true && action == true ) {
         numberOne = Number(numberOne) + Number(numberTwo);
-        Calculate();
+        afterCalculate();
     } else if(actionMinus  == true && action == true) {
         numberOne = Number(numberOne) - Number(numberTwo);
-        Calculate();
+        afterCalculate();
     } else if (actionDivision == true && action == true){
         numberOne = Number(numberOne) / Number(numberTwo);
-        Calculate();
+        afterCalculate();
     } else if (actionMultiplication == true && action == true){
         numberOne = Number(numberOne) * Number(numberTwo);
-        Calculate();
+        afterCalculate();
     }
 });
 
 btnReset.addEventListener('click', function(){
-    numberOne = ('0');
-    numberTwo = ('0');
+    numberOne = ('');
+    numberTwo = ('');
     result = '';
     action = false;
     actionPlus = false;
@@ -283,8 +231,63 @@ btn9.addEventListener('click', set);
 //     if (action == false && commaOne == true){
 //         quantityZero = quantityZero + '0';
 //         visNO = (`${numberOne}.${quantityZero}`);
+//         return quantityZero;
 //     }
-// }); нормальная визуальная составляющая
+// });
+// нормальная визуализация. а почему бы не сделать иннер текс.висУан сразу после каждого сета удалив тот параметр из визуализации 
+
+function visualization(){
+    visNO.innerText = numberOne;
+    visNT.innerText = numberTwo;
+    if (actionPlus == true){
+        visS.innerText = '+';
+    } else if (actionMinus == true) {
+        visS.innerText = '-';
+    } else if (actionDivision == true) {
+        visS.innerText = ':';
+    } else if (actionMultiplication == true) {
+        visS.innerText = '*';
+    } else {
+        visS.innerText = '';
+    };
+    if (numberOne === '0'){
+        visNO.innerText = '0';
+    };
+    if (action == false && numberOne === '0') {
+        visNT.innerText = '';
+    };
+    // if (numberOne === '0') {
+    //     visNO.innerText = ''
+    // };
+    // if (numberTwo === '0') {
+    //     visNT.innerText = ''
+    // };
+    // if (numberTwo === '0' && action == true){
+    //     visNT.innerText = '0'
+    // };
+    if (negativityOne == true){
+        visNOnegativity.innerText = '-'
+    };
+    if (negativityOne == false ){
+        visNOnegativity.innerText = ''
+    };
+    if (negativityTwo == true){
+        visNTnegativity.classList.remove('none')
+    };
+    if (negativityTwo == false){
+        visNTnegativity.classList.add('none')
+    };
+    if (commaOne == true && commaOneUse == false) {
+        visNOcomma.innerText = '.'
+    } else {
+        visNOcomma.innerText = ''
+    }
+    if (commaTwo == true && commaTwoUse == false) {
+        visNTcomma.innerText = '.'
+    } else {
+        visNTcomma.innerText = ''
+    };
+};
 
 btnConsole.addEventListener('click', function(){
     console.log(`action: ${action}`);
@@ -301,6 +304,5 @@ btnConsole.addEventListener('click', function(){
     console.log(`commaTwo: ${commaTwo}`);
     console.log(`commaOneUse: ${commaOneUse}`);
     console.log(`commaTwoUse: ${commaTwoUse}`);
-    console.log(`numberExample: ${numberExample}`);
     console.log(`All: ${btnAll}`);
 });
