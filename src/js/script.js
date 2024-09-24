@@ -129,7 +129,7 @@ function afterCalculate(){
     result = numberOne;
     commaOne = false;
     commaTwo = false;
-    commaOneUse = false;
+    commaOneUse = true;
     commaTwoUse = false;
     numberOneAfterComma = ('');
     denominatorNumberOneAfterComma = 1;
