@@ -40,7 +40,10 @@ let negativityOne = false;
 let negativityTwo = false;
 let commaOneUse = false;
 let commaTwoUse = false;
-let quantityZero = '';
+let numberOneAfterComma = ('');
+let denominatorNumberOneAfterComma = 1;
+let numberTwoAfterComma = ('');
+let denominatorNumberTwoAfterComma = 1;
 
 const btnAll = document.querySelectorAll('button');
 btnAll.forEach(function() {
@@ -126,8 +129,12 @@ function afterCalculate(){
     result = numberOne;
     commaOne = false;
     commaTwo = false;
-    commaOneUse = true;
+    commaOneUse = false;
     commaTwoUse = false;
+    numberOneAfterComma = ('');
+    denominatorNumberOneAfterComma = 1;
+    numberTwoAfterComma = ('');
+    denominatorNumberTwoAfterComma = 1;
     return numberOne;
 }
 
@@ -146,16 +153,16 @@ perform.addEventListener('click', function(){
 
 perform.addEventListener('click', function(){
     if (actionPlus == true && action == true ) {
-        numberOne = Number(numberOne) + Number(numberTwo);
+        numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma + (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
         afterCalculate();
     } else if(actionMinus  == true && action == true) {
-        numberOne = Number(numberOne) - Number(numberTwo);
+        numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma - (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
         afterCalculate();
     } else if (actionDivision == true && action == true){
-        numberOne = Number(numberOne) / Number(numberTwo);
+        numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) / ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
         afterCalculate();
     } else if (actionMultiplication == true && action == true){
-        numberOne = Number(numberOne) * Number(numberTwo);
+        numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) * ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
         afterCalculate();
     }
 });
@@ -176,9 +183,11 @@ btnReset.addEventListener('click', function(){
     commaTwo = false;
     commaOneUse = false;
     commaTwoUse = false;
+    numberOneAfterComma = '';
+    denominatorNumberOneAfterComma = 1;
+    numberTwoAfterComma = '';
+    denominatorNumberTwoAfterComma = 1;
 });
-
-// btn_figure
 
 btnComma.addEventListener('click', function(){
     if (action == false && commaOne == false && commaOneUse == false){
@@ -200,19 +209,17 @@ function set(){
     if (action == false && commaOne == false) {
         numberOne = numberOne + this.innerText;
         return numberOne;
-    } else if (action == false && commaOne == true && commaOneUse == false){
-        numberOne = (numberOne + this.innerText) / 10;
-        commaOne = false;
-        commaOneUse = true;
-        return numberOne;
+    } else if (action == false && commaOne == true){
+        numberOneAfterComma = numberOneAfterComma + this.innerText;
+        denominatorNumberOneAfterComma = denominatorNumberOneAfterComma *10;
+        return numberOneAfterComma, denominatorNumberOneAfterComma;
     } else if (action == true && commaTwo == false) {
         numberTwo = numberTwo + this.innerText;
         return numberTwo;
-    } else if (action == true && commaTwo == true && commaTwoUse == false){
-        numberTwo = (numberTwo + this.innerText) / 10;
-        commaTwo = false;
-        commaTwoUse = true;
-        return numberTwo;
+    } else if (action == true && commaTwo == true){
+        numberTwoAfterComma = numberTwoAfterComma + this.innerText;
+        denominatorNumberTwoAfterComma = denominatorNumberTwoAfterComma * 10;
+        return numberOneAfterComma, denominatorNumberTwoAfterComma;
     }
 };
 
@@ -227,18 +234,13 @@ btn7.addEventListener('click', set);
 btn8.addEventListener('click', set);
 btn9.addEventListener('click', set);
 
-// btn0.addEventListener('click', function(){
-//     if (action == false && commaOne == true){
-//         quantityZero = quantityZero + '0';
-//         visNO = (`${numberOne}.${quantityZero}`);
-//         return quantityZero;
-//     }
-// });
-// нормальная визуализация. а почему бы не сделать иннер текс.висУан сразу после каждого сета удалив тот параметр из визуализации 
-
 function visualization(){
     visNO.innerText = numberOne;
     visNT.innerText = numberTwo;
+    if (commaOne == true){
+    visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
+    if (commaTwo == true){
+        visNT.innerText = `${numberTwo}.${numberTwoAfterComma}`};
     if (actionPlus == true){
         visS.innerText = '+';
     } else if (actionMinus == true) {
@@ -256,15 +258,6 @@ function visualization(){
     if (action == false && numberOne === '0') {
         visNT.innerText = '';
     };
-    // if (numberOne === '0') {
-    //     visNO.innerText = ''
-    // };
-    // if (numberTwo === '0') {
-    //     visNT.innerText = ''
-    // };
-    // if (numberTwo === '0' && action == true){
-    //     visNT.innerText = '0'
-    // };
     if (negativityOne == true){
         visNOnegativity.innerText = '-'
     };
@@ -276,16 +269,6 @@ function visualization(){
     };
     if (negativityTwo == false){
         visNTnegativity.classList.add('none')
-    };
-    if (commaOne == true && commaOneUse == false) {
-        visNOcomma.innerText = '.'
-    } else {
-        visNOcomma.innerText = ''
-    }
-    if (commaTwo == true && commaTwoUse == false) {
-        visNTcomma.innerText = '.'
-    } else {
-        visNTcomma.innerText = ''
     };
 };
 
@@ -304,5 +287,9 @@ btnConsole.addEventListener('click', function(){
     console.log(`commaTwo: ${commaTwo}`);
     console.log(`commaOneUse: ${commaOneUse}`);
     console.log(`commaTwoUse: ${commaTwoUse}`);
+    console.log(`numberOneAfterComma: ${numberOneAfterComma}`);
+    console.log(`denominatorNumberOneAfterComma: ${denominatorNumberOneAfterComma}`);
+    console.log(`numberTwoAfterComma: ${numberTwoAfterComma}`);
+    console.log(`denominatorNumberTwoAfterComma: ${denominatorNumberTwoAfterComma}`);
     console.log(`All: ${btnAll}`);
 });
