@@ -272,6 +272,15 @@ function visualization(){
     };
 };
 
+const example = prompt('Антон, введите ваше имя');
+btnAll.forEach(function() {
+    this.addEventListener('click', function(){
+        if (example != 'Антон'){
+            bodyAll.classList.add('none')
+        }
+    })
+});
+
 btnConsole.addEventListener('click', function(){
     console.log(`action: ${action}`);
     console.log(`actionPlus: ${actionPlus}`);
@@ -294,5 +303,4 @@ btnConsole.addEventListener('click', function(){
     console.log(`All: ${btnAll}`);
 });
 
-const example = prompt('Антон, введите ваше имя');
-alert(`${example}, шутка:)))`)
+
