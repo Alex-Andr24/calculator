@@ -54,15 +54,15 @@ btnAll.forEach(function() {
 btnMinus.addEventListener('click', function(){
     if (action == false && numberOne === '' && negativityOne == false ) {
         negativityOne = true;
-    } else if ( action == false && numberOne === '' && negativityOne == true ) {
+    } else if ( action == false && numberOne === '' && negativityOne) {
         negativityOne = false;
     } 
 });
 
 btnMinus.addEventListener('click', function(){
-    if (action == true && numberTwo === '' && negativityTwo == false ) {
+    if (action && numberTwo === '' && negativityTwo == false ) {
         negativityTwo = true;
-    } else if (action == true && numberTwo === '' && negativityTwo == true ) {
+    } else if (action && numberTwo === '' && negativityTwo) {
         negativityTwo = false;
     }
 });
@@ -78,7 +78,7 @@ btnMinus.addEventListener('click', function(){
 });
 
 btnMinus.addEventListener('click', function(){
-    if (action == true && numberTwo > 0) {
+    if (action && numberTwo > 0) {
         action = true;
         actionPlus = false;
         actionMinus = true;
@@ -88,7 +88,7 @@ btnMinus.addEventListener('click', function(){
 });
 
 btnPlus.addEventListener('click', function(){
-    if (negativityTwo == true){
+    if (negativityTwo){
         negativityTwo = false
     }
 });
@@ -139,29 +139,29 @@ function afterCalculate(){
 }
 
 perform.addEventListener('click', function(){
-    if (negativityOne == true){
+    if (negativityOne){
         numberOne = Number(numberOne)*-1;
         return numberOne;
     };
 });
 perform.addEventListener('click', function(){
-    if (negativityTwo == true){
+    if (negativityTwo){
         numberTwo = Number(numberTwo)*-1;
         return numberTwo;
     }
 });
 
 perform.addEventListener('click', function(){
-    if (actionPlus == true && action == true ) {
+    if (actionPlus&&action){
         numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma + (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
         afterCalculate();
-    } else if(actionMinus  == true && action == true) {
+    } else if(actionMinus&&action){
         numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma - (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
         afterCalculate();
-    } else if (actionDivision == true && action == true){
+    } else if (actionDivision&&action){
         numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) / ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
         afterCalculate();
-    } else if (actionMultiplication == true && action == true){
+    } else if (actionMultiplication&&action){
         numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) * ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
         afterCalculate();
     }
@@ -192,31 +192,31 @@ btnReset.addEventListener('click', function(){
 btnComma.addEventListener('click', function(){
     if (action == false && commaOne == false && commaOneUse == false){
         commaOne = true;
-    } else if (action == false && commaOne == true ) {
-        commaOne = false
+    } else if (action == false && commaOne){
+        commaOne = false;
     }
 });
 
 btnComma.addEventListener('click', function(){
-    if (action == true && commaTwo == false &&commaTwoUse == false){
+    if (action&&commaTwo == false&&commaTwoUse == false){
         commaTwo = true;
-    } else if (action == true && commaTwo == true &&commaTwoUse == false){
+    } else if (action&&commaTwo&&commaTwoUse == false){
         commaTwo = false;
     }
 });
 
 function set(){
-    if (action == false && commaOne == false) {
+    if (action == false&&commaOne == false){
         numberOne = numberOne + this.innerText;
         return numberOne;
-    } else if (action == false && commaOne == true){
+    }else if(action == false &&commaOne){
         numberOneAfterComma = numberOneAfterComma + this.innerText;
         denominatorNumberOneAfterComma = denominatorNumberOneAfterComma *10;
         return numberOneAfterComma, denominatorNumberOneAfterComma;
-    } else if (action == true && commaTwo == false) {
+    }else if(action&&commaTwo == false){
         numberTwo = numberTwo + this.innerText;
         return numberTwo;
-    } else if (action == true && commaTwo == true){
+    } else if (action&&commaTwo){
         numberTwoAfterComma = numberTwoAfterComma + this.innerText;
         denominatorNumberTwoAfterComma = denominatorNumberTwoAfterComma * 10;
         return numberOneAfterComma, denominatorNumberTwoAfterComma;
@@ -237,17 +237,17 @@ btn9.addEventListener('click', set);
 function visualization(){
     visNO.innerText = numberOne;
     visNT.innerText = numberTwo;
-    if (commaOne == true){
-    visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
-    if (commaTwo == true){
+    if (commaOne){
+        visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
+    if (commaTwo){
         visNT.innerText = `${numberTwo}.${numberTwoAfterComma}`};
-    if (actionPlus == true){
+    if (actionPlus){
         visS.innerText = '+';
-    } else if (actionMinus == true) {
+    } else if (actionMinus){
         visS.innerText = '-';
-    } else if (actionDivision == true) {
+    } else if (actionDivision){
         visS.innerText = ':';
-    } else if (actionMultiplication == true) {
+    } else if (actionMultiplication){
         visS.innerText = '*';
     } else {
         visS.innerText = '';
@@ -258,13 +258,13 @@ function visualization(){
     if (action == false && numberOne === '0') {
         visNT.innerText = '';
     };
-    if (negativityOne == true){
+    if (negativityOne){
         visNOnegativity.innerText = '-'
     };
-    if (negativityOne == false ){
+    if (negativityOne == false){
         visNOnegativity.innerText = ''
     };
-    if (negativityTwo == true){
+    if (negativityTwo){
         visNTnegativity.classList.remove('none')
     };
     if (negativityTwo == false){
