@@ -133,19 +133,22 @@ inputvalueRounding.addEventListener('input',()=>{
     }
 });
 
-acceptValueRauding.addEventListener('click',()=>{
+formRaundingAccept.addEventListener('submit',(e)=>{
+    e.preventDefault()
     if (acceptValueRauding.innerText === 'Принять настройку'){
         acceptValueRauding.innerText = "Вернуть по умолчанию";
         acceptValueRauding.classList.remove('raunding-input_green');
         inputvalueRounding.classList.remove('raunding-input_green');
         figureRound = inputvalueRounding.value;
     } else if (acceptValueRauding.innerText === "Вернуть по умолчанию"){
-        figureRound.value = '';
-        inputvalueRounding.value = 'по умолчанию'
+        inputvalueRounding.value = '';
         inputvalueRounding.classList.remove('raunding-input_green')
         inputvalueRounding.classList.remove('raunding-input_red')
         acceptValueRauding.classList.remove('raunding-accept_yellow')
         acceptValueRauding.classList.remove('raunding-input_green')
+        raundingDescr.classList.remove('raunding-descr_deactivated');
+        acceptValueRauding.classList.add('raunding-accept_deactivated');
+        figureRound = inputvalueRounding.value;
     }
 })
 
