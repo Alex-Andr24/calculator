@@ -44,6 +44,9 @@ let numberOneAfterComma = ('');
 let denominatorNumberOneAfterComma = 1;
 let numberTwoAfterComma = ('');
 let denominatorNumberTwoAfterComma = 1;
+let figureRound = '';
+let comparison = '0';
+console.log(figureRound === comparison);
 
 const btnAll = document.querySelectorAll('button');
 btnAll.forEach(function() {
@@ -117,6 +120,8 @@ btnMultiplication.addEventListener('click',function(){
     actionMultiplication = true;
 });
 
+
+
 function afterCalculate(){
     action = false;
     actionPlus = false;
@@ -135,6 +140,9 @@ function afterCalculate(){
     denominatorNumberOneAfterComma = 1;
     numberTwoAfterComma = ('');
     denominatorNumberTwoAfterComma = 1;
+    if (figureRound > '0' || figureRound === '0' ){
+        numberOne = numberOne.toFixed(figureRound)
+    }    
     return numberOne;
 }
 
@@ -272,14 +280,47 @@ function visualization(){
     };
 };
 
-const example = prompt('Антон, введите ваше имя');
-btnAll.forEach(function() {
-    this.addEventListener('click', function(){
-        if (example != 'Антон'){
-            bodyAll.classList.add('none')
-        }
-    })
+inputvalueRounding.addEventListener('input', function(){
+    raundingDescr.classList.add('raunding-descr_deactivated');
+    acceptValueRauding.classList.remove('raunding-accept_deactivated');
+    if (inputvalueRounding.value >= 0){
+        inputvalueRounding.classList.add('raunding-input_green');
+        inputvalueRounding.classList.remove('raunding-input_red');
+        acceptValueRauding.classList.remove('raunding-accept_yellow');
+        acceptValueRauding.innerText = 'Принять настройку'
+        acceptValueRauding.classList.add('raunding-input_green')
+    } else if (inputvalueRounding.value < 0){
+        acceptValueRauding.innerText = 'Вернуть по умолчанию'
+        acceptValueRauding.classList.add('raunding-accept_yellow')
+        inputvalueRounding.classList.remove('raunding-input_green');
+        inputvalueRounding.classList.add('raunding-input_red');
+    }
 });
+
+acceptValueRauding.addEventListener('click', function(){
+    if (acceptValueRauding.innerText === 'Принять настройку'){
+        acceptValueRauding.innerText = "Вернуть по умолчанию";
+        acceptValueRauding.classList.remove('raunding-input_green');
+        inputvalueRounding.classList.remove('raunding-input_green');
+        figureRound = inputvalueRounding.value;
+    } else if (acceptValueRauding.innerText === "Вернуть по умолчанию"){
+        figureRound.value = '';
+        inputvalueRounding.value = 'по умолчанию'
+        inputvalueRounding.classList.remove('raunding-input_green')
+        inputvalueRounding.classList.remove('raunding-input_red')
+        acceptValueRauding.classList.remove('raunding-accept_yellow')
+        acceptValueRauding.classList.remove('raunding-input_green')
+    }
+})
+
+
+
+// acceptValueRauding.addEventListener('click', function(){
+//     figureRound = inputvalueRounding.value;
+//     inputvalueRounding.classList.remove('raunding-inut_green')
+// });
+// кажется это уже не нужно 
+
 
 btnConsole.addEventListener('click', function(){
     console.log(`action: ${action}`);
@@ -302,5 +343,3 @@ btnConsole.addEventListener('click', function(){
     console.log(`denominatorNumberTwoAfterComma: ${denominatorNumberTwoAfterComma}`);
     console.log(`All: ${btnAll}`);
 });
-
-

@@ -3,7 +3,7 @@ $main-size: 24px
     box-sizing: border-box
 body
     background-color: #5a5a5a
-.figure_border, .sign_border, .perform_border, .reset_border, .function_border
+.figure_border, .sign_border, .perform_border, .reset_border, .function_border, .raunding-accept
     background-color: #dbdbdb
     border: 1px solid black
     transition: background-color .4s
@@ -13,6 +13,15 @@ body
     &:hover
         content: ''
         border: 2px solid black
+        cursor: pointer
+.raunding_border
+    border: 1px solid black
+    transition: background-color .4s
+    &:active
+        content: ''
+        background-color: #dbdbdb
+.none
+    display: none
 
 .visBlock
     display: flex
@@ -24,8 +33,6 @@ body
     flex-wrap: wrap
     min-height: 31.59px
     padding-left: 5px
-.none
-    display: none
 
 .wrapper-figure
     width: 90%
@@ -93,10 +100,57 @@ body
     width: 71px
     height: 35px
     font-size: 12px
+
+.wrapper-rounding
+    position: relative
+    overflow: hidden
+    min-width: 300px
+    max-width: 300px
+    margin: 5% auto 5% auto
+    display: flex
+    height: 60px
+.raunding-accept
+    position: absolute
+    left: 0%
+    transition: left .4s
+    // transition: background-color .200s
+    height: 40px
+    min-width: 174px
+.raunding-descr
+    position: absolute
+    background-color: #dbdbdb
+    width: 55%
+    font-size: 14px
+    height: 40px
+    text-align: center
+    padding-top: 3px
+    left: 0
+    transition: left .4s
+.raunding-descr_deactivated, .raunding-accept_deactivated
+    left: -100%
+.raunding-input
+    position: absolute
+    top: 0
+    right: 0
+    padding-left: 10px
+    padding-right: 0px
+    font-size: 15px
+    height: 40px
+    max-width: 115px
+    text-align: center
+    min-height: 40px
+.raunding-input_green, .raunding-accept_green
+    background-color: rgba(8, 201, 8, 0.753)
+.raunding-input_red, .raunding-accept_red
+    background-color: rgba(204, 7, 7, 0.753)
+.raunding-accept_yellow
+    background-color: #c0c400
+
+
 .wrapper-figure__row_animated, .wrapper-sign__row_animated, .wrapper-perform_animated, .wrapper-reset_animated
     animation-name: open
     animation-duration: 1.5s
 
-.wrapper-function_animated, .visBlock_animated
+.wrapper-function_animated, .visBlock_animated, .wrapper-rounding_animated
     animation-name: openSM
     animation-duration: 1.5s
