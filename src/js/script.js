@@ -25,7 +25,6 @@ let actionDivision = (false);
 let actionMultiplication = (false);
 let commaOne = false;
 let commaTwo = false;
-let result = ('0');
 let negativityOne = false;
 let negativityTwo = false;
 let commaOneUse = false;
@@ -37,164 +36,187 @@ let denominatorNumberTwoAfterComma = 1;
 let figureRound = '';
 let comparison = '0';
 
+const btnAll = document.querySelectorAll('button');
+
+btnAll.forEach( () => this.addEventListener('click', visualization)
+);
+
 function visualization(){
     visNO.innerText = numberOne;
     visNT.innerText = numberTwo;
-    if (commaOne){
+
+    if (commaOne) {
         visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
-    if (commaTwo){
+    if (commaTwo) {
         visNT.innerText = `${numberTwo}.${numberTwoAfterComma}`};
-    if (actionPlus){
-        visS.innerText = '+';
-    } else if (actionMinus){
-        visS.innerText = '-';
-    } else if (actionDivision){
-        visS.innerText = ':';
-    } else if (actionMultiplication){
-        visS.innerText = '*';
+        
+    if (actionPlus) {
+    visS.innerText = '+';
+    } else if (actionMinus) {
+    visS.innerText = '-';
+    } else if (actionDivision) {
+    visS.innerText = ':';
+    } else if (actionMultiplication) {
+    visS.innerText = '*';
     } else {
-        visS.innerText = '';
+    visS.innerText = '';
     };
-    if (numberOne === '0'){
+
+    if (numberOne === '0') {
         visNO.innerText = '0';
     };
     if (action == false && numberOne === '0') {
         visNT.innerText = '';
     };
-    if (negativityOne){
+    if (negativityOne) {
         visNOnegativity.innerText = '-'
     };
-    if (negativityOne == false){
+    if (negativityOne == false) {
         visNOnegativity.innerText = ''
     };
-    if (negativityTwo){
+    if (negativityTwo) {
         visNTnegativity.classList.remove('none')
     };
-    if (negativityTwo == false){
+    if (negativityTwo == false) {
         visNTnegativity.classList.add('none')
     };
 };
-const btnAll = document.querySelectorAll('button');
-btnAll.forEach(()=>this.addEventListener('click', visualization)
-);
 
-function set(){
-    if (action == false&&commaOne == false){
+const btnFigureAll = [btn0, btn1, btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9];
+
+btnFigureAll.forEach( (item, i) => {
+    item.addEventListener('click', set);
+});
+
+function set() {
+    if (action == false && commaOne == false) {
         numberOne += this.innerText;
-        return numberOne;
-    }else if(action == false &&commaOne){
+    }else if(action == false && commaOne) {
         numberOneAfterComma += this.innerText;
         denominatorNumberOneAfterComma *= 10;
-        return numberOneAfterComma, denominatorNumberOneAfterComma;
-    }else if(action&&commaTwo == false){
+    }else if(action && commaTwo == false) {
         numberTwo += this.innerText;
-        return numberTwo;
-    } else if (action&&commaTwo){
+    } else if (action && commaTwo) {
         numberTwoAfterComma += this.innerText;
         denominatorNumberTwoAfterComma *= 10;
-        return numberOneAfterComma, denominatorNumberTwoAfterComma;
-    }
+    };
 };
-const btnFigureAll = [btn0, btn1, btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9]
-btnFigureAll.forEach((item, i)=>{
-    item.addEventListener('click', set)
-});
 
-btnComma.addEventListener('click',()=>{
-    if (action == false && commaOne == false && commaOneUse == false){
+btnComma.addEventListener('click',()=> {
+    if (action == false 
+        && commaOne == false 
+        && commaOneUse == false) {
         commaOne = true;
-    } else if (action == false && commaOne){
+    } else if (action == false && commaOne) {
         commaOne = false;
-    }
+    };
 });
 
-btnComma.addEventListener('click',()=>{
-    if (action&&commaTwo == false&&commaTwoUse == false){
+btnComma.addEventListener('click',() => {
+    if (action 
+        && commaTwo == false
+        && commaTwoUse == false) {
         commaTwo = true;
-    } else if (action&&commaTwo&&commaTwoUse == false){
+    } else if (action 
+        && commaTwo
+        && commaTwoUse == false) {
         commaTwo = false;
-    }
+    };
 });
 
-inputvalueRounding.addEventListener('input',()=>{
+inputvalueRounding.addEventListener('input',() => {
     raundingDescr.classList.add('raunding-descr_deactivated');
     acceptValueRauding.classList.remove('raunding-accept_deactivated');
-    if (inputvalueRounding.value >= 0){
+    if (inputvalueRounding.value >= 0) {
         inputvalueRounding.classList.add('raunding-input_green');
         inputvalueRounding.classList.remove('raunding-input_red');
+
         acceptValueRauding.classList.remove('raunding-accept_yellow');
         acceptValueRauding.innerText = 'Принять настройку'
-        acceptValueRauding.classList.add('raunding-input_green')
-    } else if (inputvalueRounding.value < 0){
-        acceptValueRauding.innerText = 'Вернуть по умолчанию'
-        acceptValueRauding.classList.add('raunding-accept_yellow')
+        acceptValueRauding.classList.add('raunding-input_green');
+
+    } else if (inputvalueRounding.value < 0) {
+        acceptValueRauding.innerText = 'Вернуть по умолчанию';
+        acceptValueRauding.classList.add('raunding-accept_yellow');
+
         inputvalueRounding.classList.remove('raunding-input_green');
         inputvalueRounding.classList.add('raunding-input_red');
-    }
+    };
 });
 
-formRaundingAccept.addEventListener('submit',(e)=>{
-    e.preventDefault()
-    if (acceptValueRauding.innerText === 'Принять настройку'){
+formRaundingAccept.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (acceptValueRauding.innerText === 'Принять настройку') {
         acceptValueRauding.innerText = "Вернуть по умолчанию";
         acceptValueRauding.classList.remove('raunding-input_green');
+
         inputvalueRounding.classList.remove('raunding-input_green');
+
         figureRound = inputvalueRounding.value;
-    } else if (acceptValueRauding.innerText === "Вернуть по умолчанию"){
+
+    } else if (acceptValueRauding.innerText === "Вернуть по умолчанию") {
         inputvalueRounding.value = '';
-        inputvalueRounding.classList.remove('raunding-input_green')
-        inputvalueRounding.classList.remove('raunding-input_red')
-        acceptValueRauding.classList.remove('raunding-accept_yellow')
-        acceptValueRauding.classList.remove('raunding-input_green')
-        raundingDescr.classList.remove('raunding-descr_deactivated');
-        acceptValueRauding.classList.add('raunding-accept_deactivated');
         figureRound = inputvalueRounding.value;
-    }
-})
 
-btnMinus.addEventListener('click',()=>{
-    if (action == false && numberOne === '' && negativityOne == false ) {
+        inputvalueRounding.classList.remove('raunding-input_green');
+        inputvalueRounding.classList.remove('raunding-input_red');
+
+        acceptValueRauding.classList.remove('raunding-accept_yellow');
+        acceptValueRauding.classList.remove('raunding-input_green');
+        acceptValueRauding.classList.add('raunding-accept_deactivated');
+
+        raundingDescr.classList.remove('raunding-descr_deactivated');
+    };
+});
+
+btnMinus.addEventListener('click',() => {
+    if (action == false 
+        && numberOne === '' 
+        && negativityOne == false ) {
         negativityOne = true;
-    } else if ( action == false && numberOne === '' && negativityOne) {
+    } else if ( action == false 
+        && numberOne === '' 
+        && negativityOne) {
         negativityOne = false;
-    } 
+    };
 });
 
-btnMinus.addEventListener('click',()=>{
-    if (action && numberTwo === '' && negativityTwo == false ) {
+btnMinus.addEventListener('click',() => {
+    if (action 
+        && numberTwo === '' 
+        && negativityTwo == false ) {
         negativityTwo = true;
-    } else if (action && numberTwo === '' && negativityTwo) {
+    } else if (action 
+        && numberTwo === '' 
+        && negativityTwo) {
         negativityTwo = false;
-    }
+    };
 });
 
-btnMinus.addEventListener('click',()=>{
+btnMinus.addEventListener('click',() => {
     if (action == false && numberOne !== '') {
         action = true;
         actionPlus = false;
         actionMinus = true;
         actionDivision = false;
         actionMultiplication = false;
-    }
+    };
 });
 
-btnMinus.addEventListener('click',()=>{
+btnMinus.addEventListener('click',() => {
     if (action && numberTwo > 0) {
-        action = true;
         actionPlus = false;
         actionMinus = true;
         actionDivision = false;
         actionMultiplication = false;
-    }
+    };
 });
 
-btnPlus.addEventListener('click',()=>{
-    if (negativityTwo){
-        negativityTwo = false
-    }
+btnPlus.addEventListener('click',() => {
+    if (negativityTwo) {negativityTwo = false};
 });
 
-btnPlus.addEventListener('click',()=>{
+btnPlus.addEventListener('click',() => {
     action = true;
     actionPlus = true;
     actionMinus = false;
@@ -202,7 +224,7 @@ btnPlus.addEventListener('click',()=>{
     actionMultiplication = false;
 });
 
-btnDivision.addEventListener('click',()=>{
+btnDivision.addEventListener('click',() => {
     action = true;
     actionPlus = false;
     actionMinus = false;
@@ -210,7 +232,7 @@ btnDivision.addEventListener('click',()=>{
     actionMultiplication = false;
 });
 
-btnMultiplication.addEventListener('click',()=>{
+btnMultiplication.addEventListener('click',() => {
     action = true;
     actionPlus = false;
     actionMinus = false;
@@ -218,28 +240,65 @@ btnMultiplication.addEventListener('click',()=>{
     actionMultiplication = true;
 });
 
-perform.addEventListener('click',()=>{
-    if (negativityOne){
+perform.addEventListener('click',() => {
+    if (negativityOne) {
         numberOne = -numberOne;
         return numberOne;
     };
 });
-perform.addEventListener('click',()=>{
-    if (negativityTwo){
+
+perform.addEventListener('click',() => {
+    if (negativityTwo) {
         numberTwo = -numberTwo;
         return numberTwo;
     }
 });
-function afterCalculate(){
+
+perform.addEventListener('click',() => {
+    if (actionPlus && action) {
+        numberOne = 
+        (numberOne + numberOneAfterComma) 
+        /denominatorNumberOneAfterComma 
+        + 
+        (numberTwo + numberTwoAfterComma) 
+        / denominatorNumberTwoAfterComma;
+        afterCalculate();
+    } else if(actionMinus && action) {
+        numberOne = 
+        (numberOne + numberOneAfterComma) 
+        /denominatorNumberOneAfterComma 
+        - 
+        (numberTwo + numberTwoAfterComma) 
+        / denominatorNumberTwoAfterComma;
+        afterCalculate();
+    } else if (actionDivision && action) {
+        numberOne = 
+        ((numberOne + numberOneAfterComma) 
+        /denominatorNumberOneAfterComma) 
+        / 
+        ((numberTwo + numberTwoAfterComma) 
+        / denominatorNumberTwoAfterComma);
+        afterCalculate();
+    } else if (actionMultiplication && action) {
+        numberOne = 
+        ((numberOne + numberOneAfterComma) 
+        /denominatorNumberOneAfterComma) 
+        * 
+        ((numberTwo + numberTwoAfterComma) 
+        / denominatorNumberTwoAfterComma);
+        afterCalculate();
+    };
+});
+
+function afterCalculate() {
     action = false;
     actionPlus = false;
     actionMinus = false;
     actionDivision = false;
     actionMultiplication = false;
+    numberTwo = ('');
     negativityOne = false;
     negativityTwo = false;
-    numberTwo = ('');
-    result = numberOne;
     commaOne = false;
     commaTwo = false;
     commaOneUse = true;
@@ -248,31 +307,14 @@ function afterCalculate(){
     denominatorNumberOneAfterComma = 1;
     numberTwoAfterComma = ('');
     denominatorNumberTwoAfterComma = 1;
-    if (figureRound > '0' || figureRound === '0' ){
+    if (figureRound > '0' || figureRound === '0' ) {
         numberOne = numberOne.toFixed(figureRound)
-    }    
-    return numberOne;
-}
-perform.addEventListener('click',()=>{
-    if (actionPlus&&action){
-        numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma + (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
-        afterCalculate();
-    } else if(actionMinus&&action){
-        numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma - (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
-        afterCalculate();
-    } else if (actionDivision&&action){
-        numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) / ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
-        afterCalculate();
-    } else if (actionMultiplication&&action){
-        numberOne = ((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) * ((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
-        afterCalculate();
-    }
-});
+    };
+};
 
-btnReset.addEventListener('click',()=>{
+btnReset.addEventListener('click', () => {
     numberOne = ('');
     numberTwo = ('');
-    result = '';
     action = false;
     actionPlus = false;
     actionMinus = false;
@@ -291,7 +333,7 @@ btnReset.addEventListener('click',()=>{
     denominatorNumberTwoAfterComma = 1;
 });
 
-btnConsole.addEventListener('click',()=>{
+btnConsole.addEventListener('click', () => {
     console.log(`action: ${action}`);
     console.log(`actionPlus: ${actionPlus}`);
     console.log(`actionMinus: ${actionMinus}`);
@@ -299,7 +341,6 @@ btnConsole.addEventListener('click',()=>{
     console.log(`actionDivision: ${actionDivision}`);
     console.log(`numberOne: ${numberOne}`);
     console.log(`numberTwo: ${numberTwo}`);
-    console.log(`result: ${result}`);
     console.log(`negativityOne: ${negativityOne}`);
     console.log(`negativityTwo: ${negativityTwo}`);
     console.log(`commaOne: ${commaOne}`);
