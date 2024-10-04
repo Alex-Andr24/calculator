@@ -16,13 +16,13 @@ const btnDivision = document.querySelector('#division');
 const btnReset = document.querySelector('#reset');
 const btnConsole = document.querySelector('#console');
 const btnComma = document.querySelector('#comma')
-let numberOne = ('');
+let numberOne = ('')
 let numberTwo = ('');
-let action = (false);
-let actionPlus = (false);
-let actionMinus = (false);
-let actionDivision = (false);
-let actionMultiplication = (false);
+let action = false;
+let actionPlus = false;
+let actionMinus = false;
+let actionDivision = false;
+let actionMultiplication = false;
 let commaOne = false;
 let commaTwo = false;
 let negativityOne = false;
@@ -33,8 +33,9 @@ let numberOneAfterComma = ('');
 let denominatorNumberOneAfterComma = 1;
 let numberTwoAfterComma = ('');
 let denominatorNumberTwoAfterComma = 1;
-let figureRound = '';
-let comparison = '0';
+let figureRound = ('');
+let controlZeroNumberOne;
+let needControlZeroNumberOne;
 
 const btnAll = document.querySelectorAll('button');
 
@@ -42,8 +43,21 @@ btnAll.forEach( () => this.addEventListener('click', visualization)
 );
 
 function visualization(){
+    // if (numberOne === "00"){
+    //     numberOne = '0'
+    // };
+    // if (numberTwo === "00"){
+    //     numberTwo = '0'
+    // };
+
     visNO.innerText = numberOne;
+    // ??= '0';
     visNT.innerText = numberTwo;
+    
+    
+    // if (control === '0' && numberOne > 0){
+    //     visNO.innerText = visNO.innerText.replace(/\d/, 'delete')
+    // }
 
     if (commaOne) {
         visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
@@ -62,12 +76,15 @@ function visualization(){
     visS.innerText = '';
     };
 
-    if (numberOne === '0') {
-        visNO.innerText = '0';
-    };
-    if (action == false && numberOne === '0') {
-        visNT.innerText = '';
-    };
+    // кажется следующая часть кода не нужна
+    // if (numberOne === '0') {
+    //     visNO.innerText = '0';
+    // };
+    // if (action == false && numberOne === '0') {
+    //     visNT.innerText = '';
+    // };
+
+    // следующая часть кода позволяет увидеть "минус", который указывает на отрицатльность Числа, перед этим Числом ещё до набора этого Числа
     if (negativityOne) {
         visNOnegativity.innerText = '-'
     };
@@ -89,25 +106,51 @@ btnFigureAll.forEach( (item, i) => {
 });
 
 function set() {
+    
     if (action == false && commaOne == false) {
         numberOne += this.innerText;
     }else if(action == false && commaOne) {
         numberOneAfterComma += this.innerText;
+        commaOneUse = true;
         denominatorNumberOneAfterComma *= 10;
     }else if(action && commaTwo == false) {
         numberTwo += this.innerText;
     } else if (action && commaTwo) {
         numberTwoAfterComma += this.innerText;
+        commaTwoUse = true;
         denominatorNumberTwoAfterComma *= 10;
     };
+
+    if (numberOne.match(/^\d/) != null) {
+        numberOne.match(/^\d/).forEach( (item) => {
+        needControlZeroNumberOne = item === '0' ? true : false
+    });
+    };
+    if (numberOne > 0 && needControlZeroNumberOne == true){
+        numberOne = numberOne.replace(/^0*/, '')
+    };
+
+    if (numberTwo.match(/^\d/) != null) {
+        numberTwo.match(/^\d/).forEach( (item) => {
+        needControlZeroNumberTwo = item === '0' ? true : false
+        });
+    };
+    if (numberTwo > 0 && needControlZeroNumberTwo == true){
+        numberTwo = numberTwo.replace(/^0*/, '')
+    };
+
 };
 
 btnComma.addEventListener('click',()=> {
     if (action == false 
+        && numberOne % 1 == 0
         && commaOne == false 
         && commaOneUse == false) {
         commaOne = true;
-    } else if (action == false && commaOne) {
+    } else if (
+        action == false 
+        && commaOne
+        && commaOneUse == false) {
         commaOne = false;
     };
 });
@@ -117,7 +160,8 @@ btnComma.addEventListener('click',() => {
         && commaTwo == false
         && commaTwoUse == false) {
         commaTwo = true;
-    } else if (action 
+    } else if (
+        action 
         && commaTwo
         && commaTwoUse == false) {
         commaTwo = false;
@@ -301,7 +345,7 @@ function afterCalculate() {
     negativityTwo = false;
     commaOne = false;
     commaTwo = false;
-    commaOneUse = true;
+    commaOneUse = false;
     commaTwoUse = false;
     numberOneAfterComma = ('');
     denominatorNumberOneAfterComma = 1;
@@ -333,7 +377,7 @@ btnReset.addEventListener('click', () => {
     denominatorNumberTwoAfterComma = 1;
 });
 
-btnConsole.addEventListener('click', () => {
+btnConsole.onclick = () => {
     console.log(`action: ${action}`);
     console.log(`actionPlus: ${actionPlus}`);
     console.log(`actionMinus: ${actionMinus}`);
@@ -351,4 +395,6 @@ btnConsole.addEventListener('click', () => {
     console.log(`denominatorNumberOneAfterComma: ${denominatorNumberOneAfterComma}`);
     console.log(`numberTwoAfterComma: ${numberTwoAfterComma}`);
     console.log(`denominatorNumberTwoAfterComma: ${denominatorNumberTwoAfterComma}`);
-});
+    console.log(`control: ${controlZero}`);
+    console.log(typeof(controlZero));
+};
