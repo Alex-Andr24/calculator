@@ -43,21 +43,19 @@ btnAll.forEach( () => this.addEventListener('click', visualization)
 );
 
 function visualization(){
-    // if (numberOne === "00"){
-    //     numberOne = '0'
-    // };
-    // if (numberTwo === "00"){
-    //     numberTwo = '0'
-    // };
+
+   
 
     visNO.innerText = numberOne;
     // ??= '0';
     visNT.innerText = numberTwo;
-    
-    
-    // if (control === '0' && numberOne > 0){
-    //     visNO.innerText = visNO.innerText.replace(/\d/, 'delete')
-    // }
+
+    if (numberOne == ''  && commaOne) {
+        numberOne = 0;
+    };
+    if (numberTwo == ''  && commaTwo) {
+        numberTwo = 0;
+    };
 
     if (commaOne) {
         visNO.innerText = `${numberOne}.${numberOneAfterComma}`};
@@ -75,14 +73,6 @@ function visualization(){
     } else {
     visS.innerText = '';
     };
-
-    // кажется следующая часть кода не нужна
-    // if (numberOne === '0') {
-    //     visNO.innerText = '0';
-    // };
-    // if (action == false && numberOne === '0') {
-    //     visNT.innerText = '';
-    // };
 
     // следующая часть кода позволяет увидеть "минус", который указывает на отрицатльность Числа, перед этим Числом ещё до набора этого Числа
     if (negativityOne) {
@@ -106,7 +96,7 @@ btnFigureAll.forEach( (item, i) => {
 });
 
 function set() {
-    
+
     if (action == false && commaOne == false) {
         numberOne += this.innerText;
     }else if(action == false && commaOne) {
@@ -120,13 +110,13 @@ function set() {
         commaTwoUse = true;
         denominatorNumberTwoAfterComma *= 10;
     };
-
+    
     if (numberOne.match(/^\d/) != null) {
         numberOne.match(/^\d/).forEach( (item) => {
         needControlZeroNumberOne = item === '0' ? true : false
     });
     };
-    if (numberOne > 0 && needControlZeroNumberOne == true){
+    if (numberOne > 0 && needControlZeroNumberOne){
         numberOne = numberOne.replace(/^0*/, '')
     };
 
@@ -135,11 +125,19 @@ function set() {
         needControlZeroNumberTwo = item === '0' ? true : false
         });
     };
-    if (numberTwo > 0 && needControlZeroNumberTwo == true){
+    if (numberTwo > 0 && needControlZeroNumberTwo){
         numberTwo = numberTwo.replace(/^0*/, '')
     };
-
 };
+
+btnComma.addEventListener('click', () => {
+    if (numberOne == 0) {
+        numberOne = '0'
+    }
+    if (action && numberTwo == 0) {
+        numberTwo = '0'
+    }
+})
 
 btnComma.addEventListener('click',()=> {
     if (action == false 
@@ -286,50 +284,36 @@ btnMultiplication.addEventListener('click',() => {
 
 perform.addEventListener('click',() => {
     if (negativityOne) {
-        numberOne = -numberOne;
+        numberOne = -((numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma) ;
         return numberOne;
-    };
+    } else {
+        numberOne = (numberOne + numberOneAfterComma) /denominatorNumberOneAfterComma ;
+        return numberOne;
+    }
 });
 
 perform.addEventListener('click',() => {
     if (negativityTwo) {
-        numberTwo = -numberTwo;
+        numberTwo = -((numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma);
+        return numberTwo;
+    } else {
+        numberTwo = (numberTwo + numberTwoAfterComma) / denominatorNumberTwoAfterComma;
         return numberTwo;
     }
 });
 
 perform.addEventListener('click',() => {
     if (actionPlus && action) {
-        numberOne = 
-        (numberOne + numberOneAfterComma) 
-        /denominatorNumberOneAfterComma 
-        + 
-        (numberTwo + numberTwoAfterComma) 
-        / denominatorNumberTwoAfterComma;
+        numberOne = numberOne + numberTwo;
         afterCalculate();
     } else if(actionMinus && action) {
-        numberOne = 
-        (numberOne + numberOneAfterComma) 
-        /denominatorNumberOneAfterComma 
-        - 
-        (numberTwo + numberTwoAfterComma) 
-        / denominatorNumberTwoAfterComma;
+        numberOne = numberOne - numberTwo;
         afterCalculate();
     } else if (actionDivision && action) {
-        numberOne = 
-        ((numberOne + numberOneAfterComma) 
-        /denominatorNumberOneAfterComma) 
-        / 
-        ((numberTwo + numberTwoAfterComma) 
-        / denominatorNumberTwoAfterComma);
+        numberOne = numberOne / numberTwo;
         afterCalculate();
     } else if (actionMultiplication && action) {
-        numberOne = 
-        ((numberOne + numberOneAfterComma) 
-        /denominatorNumberOneAfterComma) 
-        * 
-        ((numberTwo + numberTwoAfterComma) 
-        / denominatorNumberTwoAfterComma);
+        numberOne = numberOne * numberTwo;
         afterCalculate();
     };
 });
@@ -395,6 +379,4 @@ btnConsole.onclick = () => {
     console.log(`denominatorNumberOneAfterComma: ${denominatorNumberOneAfterComma}`);
     console.log(`numberTwoAfterComma: ${numberTwoAfterComma}`);
     console.log(`denominatorNumberTwoAfterComma: ${denominatorNumberTwoAfterComma}`);
-    console.log(`control: ${controlZero}`);
-    console.log(typeof(controlZero));
 };
